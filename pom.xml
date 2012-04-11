@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.barchart.base</groupId>
+		<artifactId>barchart-archon</artifactId>
+		<version>2.1.2</version>
+	</parent>
+
+	<groupId>com.barchart.wrap</groupId>
+	<artifactId>barchart-wrap-browser-launcher</artifactId>
+	<version>1.3.0-build001-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+
+	<scm>
+		<url>https://github.com/barchart/barchart-wrap-browser-launcher</url>
+		<connection>scm:git:git://github.com/barchart/barchart-wrap-browser-launcher.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/barchart/barchart-wrap-browser-launcher.git</developerConnection>
+	</scm>
+
+	<description>
+	
+		osgi bundle wrapper for browser launcher:
+
+		http://browserlaunch2.sourceforge.net/
+
+		http://search.maven.org/#artifactdetails|edu.stanford.ejalbert|BrowserLauncher2|1.3|jar		
+		
+	</description>
+
+	<properties>
+	
+		<launcherVersion>1.3</launcherVersion>
+
+	</properties>
+
+	<dependencies>
+
+		<!-- browser launcher -->
+		<dependency>
+			<groupId>edu.stanford.ejalbert</groupId>
+			<artifactId>BrowserLauncher2</artifactId>
+			<version>${launcherVersion}</version>
+			<optional>true</optional>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+
+		<plugins>
+
+			<!-- produce bundle -->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<_failok>true</_failok>
+						<_removeheaders>
+							Service-Component,
+							Include-Resource,
+							Private-Package,
+							Ignore-Package,
+						</_removeheaders>
+						<Import-Package>
+							*,
+						</Import-Package>
+						<Embed-Dependency>
+							*;scope=compile;inline=true,
+						</Embed-Dependency>
+						<Embed-Transitive>true</Embed-Transitive>
+						<Export-Package>
+							edu.stanford.ejalbert.*;version=${launcherVersion},
+						</Export-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+	</build>
+
+</project>
